@@ -12,4 +12,12 @@ function run(event) {
     zipCode = zipCode.replace(' ', '')
     zipCode = zipCode.replace('.', '')
     zipCode = zipCode.trim()
+
+    axios.get('https://viacep.com.br/ws/' + zipCode + '/json/')
+    .then(function (response) {
+
+    })
+    .catch(function (error) {
+        
+    })
 }
