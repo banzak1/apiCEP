@@ -16,11 +16,23 @@ function run(event) {
     axios
     .get('https://viacep.com.br/ws/' + zipCode + '/json/')
     .then(function (response) {
-        console.log(response.data)
-        createLine(response.data.localidade)
+        if(response.data.erro) {
+            throw new Error('CEP Inválido')
+        }
+
+        content.innerHTML = ''
+        
+        if(response.data.logradouro != '' && response.data.bairro != ''){
+            createLine(response.data.logradouro + ', ' + response.data.bairro)        
+        }
+
+        createLine(response.data.localidade + ', ' + response.data.uf)
+        console.log(response.data.logradouro)
+        
     })
     .catch(function (error) {
-        console.log(error)
+        content.innerHTML = ''
+        createLine('Ops, algo deu errado!')
     })
 }
 
